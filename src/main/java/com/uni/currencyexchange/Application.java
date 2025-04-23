@@ -2,35 +2,34 @@ package com.uni.currencyexchange;
 
 public class Application {
     private static UI ui;
-    private static String fromCurrency = "";
-    private static String toCurrency = "";
-    private Double amount = null;
+    private static Convertion conversion;
 
     Application() {
+        conversion = new Convertion();
         ui = new UI();
 
         ui.setFromDropdown((String currency) -> {
-            fromCurrency = currency;
-            System.out.println("From Currency: " + fromCurrency);
+            conversion.setFromCurrency(currency);
+            System.out.println("From Currency: " + currency);
         });
         
         ui.setToDropdown((String currency) -> {
-            toCurrency = currency;
-            System.out.println("To Currency: " + toCurrency);
+            conversion.setToCurrency(currency);
+            System.out.println("To Currency: " + currency);
         });
         
         ui.changeAmount((String amountStr) -> {
             try {
-                this.amount = null;
-                this.amount = Double.valueOf(amountStr);
-                System.out.println("Amount: " + this.amount);
+                conversion.setAmount(0.0);
+                conversion.setAmount(Double.valueOf(amountStr));
+                System.out.println("Amount: " + conversion.getAmount());
             } catch (NumberFormatException e) {
-                System.out.println("Invalid amount entered: " + amount);
+                System.out.println("Invalid amount entered: " + amountStr);
             }
         });
         
         ui.buttonPressed(() -> {
-            ui.changeResult(amount);
+            ui.changeResult(conversion.calculate());
             System.out.println("Button Pressed");
         });
     }
