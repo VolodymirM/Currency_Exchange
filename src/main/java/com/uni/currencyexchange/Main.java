@@ -10,7 +10,10 @@ public class Main {
 
     public static void main(String[] args) {
         new Thread(() -> SpringApplication.run(Main.class, args)).start();
-        SwingUtilities.invokeLater(() -> { new Application(); });
+        SwingUtilities.invokeLater(() -> { 
+            Application app = new Application(); 
+            app.start(); 
+        });
     }
 
 }

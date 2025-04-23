@@ -1,5 +1,7 @@
 package com.uni.currencyexchange;
 
+import javax.swing.JOptionPane;
+
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,7 +29,14 @@ public class Request {
             mapper = new ObjectMapper();
             root = mapper.readTree(response);
             rates = root.path("rates");
-        } catch (JsonProcessingException e) {}
+        } catch (JsonProcessingException e) {
+            JOptionPane.showMessageDialog(
+                null,
+                "Something went wrong while fetching the data...",
+                "Warning",
+                JOptionPane.WARNING_MESSAGE
+            );
+        }
     }
 
     public double getRate(String currency) {

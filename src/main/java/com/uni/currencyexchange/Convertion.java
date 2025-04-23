@@ -15,7 +15,9 @@ public class Convertion {
 
     public double calculate() {
         request.sendRequest();
-        return request.getRate(toCurrency) / request.getRate(fromCurrency) * amount;
+        double result = request.getRate(toCurrency) / request.getRate(fromCurrency) * amount;
+        result = Math.round(result * 100.0) / 100.0;
+        return result;
     }
 
     public String getFromCurrency() {

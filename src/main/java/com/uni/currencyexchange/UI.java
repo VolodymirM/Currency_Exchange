@@ -26,7 +26,7 @@ public class UI extends JFrame {
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        String[] currencies = {"USD", "EUR", "JPY", "GBP", "INR"};
+        String[] currencies = {"USD", "EUR", "GBP", "CHF", "PLN", "ILS", "UAH",  "RUB"};
 
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();

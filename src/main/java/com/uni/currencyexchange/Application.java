@@ -4,7 +4,7 @@ public class Application {
     private static UI ui;
     private static Convertion conversion;
 
-    Application() {
+    public void start() {
         conversion = new Convertion();
         ui = new UI();
 
@@ -29,6 +29,11 @@ public class Application {
         });
         
         ui.buttonPressed(() -> {
+            if (conversion.getAmount() <= 0.0) {
+                ui.changeResult(null);
+                return;
+            }
+
             ui.changeResult(conversion.calculate());
             System.out.println("Button Pressed");
         });
