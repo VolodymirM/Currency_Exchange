@@ -3,6 +3,7 @@ package com.uni.currencyexchange;
 import javax.swing.JOptionPane;
 
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -17,13 +18,24 @@ public class Request {
     private JsonNode rates;
 
     public void sendRequest() {
-        builder = WebClient.builder();
-        response = builder.build()
-                .get()
-                .uri(URL)
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
+        try {
+            builder = WebClient.builder();
+            response = builder.build()
+                    .get()
+                    .uri(URL)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+        } catch (WebClientResponseException e) {
+            JOptionPane.showMessageDialog(
+                null,
+                "Something went wrong while fetching the data...",
+                "Warning",
+                JOptionPane.WARNING_MESSAGE
+            );
+            
+            return;
+        }
         
         try {
             mapper = new ObjectMapper();
