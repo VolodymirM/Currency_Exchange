@@ -1,9 +1,8 @@
 package com.uni.currencyexchange;
 
-import javax.swing.JOptionPane;
+import java.io.IOException;
 
-import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
+import javax.swing.JOptionPane;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -11,7 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Request {
     private static final String URL = "https://open.er-api.com/v6/latest/EUR";
-    private WebClient.Builder builder;
+    private WebClient builder;
     private String response;
     private ObjectMapper mapper;
     private JsonNode root;
@@ -20,13 +19,9 @@ public class Request {
     public void sendRequest() {
         try {
             builder = WebClient.builder();
-            response = builder.build()
-                    .get()
-                    .uri(URL)
-                    .retrieve()
-                    .bodyToMono(String.class)
-                    .block();
-        } catch (WebClientResponseException e) {
+            response = builder.get().uri(URL).block();
+
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(
                 null,
                 "Something went wrong while fetching the data...",
