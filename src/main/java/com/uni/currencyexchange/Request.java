@@ -18,8 +18,8 @@ public class Request {
 
     public void sendRequest() {
         try {
-            builder = WebClient.builder();
-            response = builder.get().uri(URL).block();
+            builder = new WebClient(URL, 80);
+            response = builder.getResponse();
 
         } catch (IOException e) {
             JOptionPane.showMessageDialog(
